@@ -4,7 +4,19 @@ class Cube {
     public color light;
     public color med;
     public color dark;
+    public float angle_offset;
     private float apothem;
+    
+    public Cube(PVector center, float radius, color light, color med, color dark, float angle_offset) {
+        this.center = center;
+        this.radius = radius;
+        this.apothem = radius * 0.866025403784;
+        this.light = light;
+        this.med = med;
+        this.dark = dark;
+        this.angle_offset = angle_offset;
+    }
+    
     public Cube(PVector center, float radius, color light, color med, color dark) {
         this.center = center;
         this.radius = radius;
@@ -12,6 +24,7 @@ class Cube {
         this.light = light;
         this.med = med;
         this.dark = dark;
+        this.angle_offset = 0;
     }
     
     public float getApothem() {
@@ -20,12 +33,12 @@ class Cube {
     
     public void draw() {
         noStroke();
-        PVector right = new PVector(this.center.x + this.radius, this.center.y);
-        PVector left = new PVector(this.center.x - this.radius, this.center.y);
-        PVector botright = new PVector(this.center.x + cos(PI / 3) * this.radius, this.center.y + sin(PI / 3) * this.radius);
-        PVector botleft = new PVector(this.center.x + cos(TWO_PI / 3) * this.radius, this.center.y + sin(TWO_PI / 3) * this.radius);
-        PVector topleft = new PVector(this.center.x + cos(4 * PI / 3) * this.radius, this.center.y + sin(4 * PI / 3) * this.radius);
-        PVector topright = new PVector(this.center.x + cos(5 * PI / 3) * this.radius, this.center.y + sin(5 * PI / 3) * this.radius);
+        PVector right = new PVector(this.center.x + cos(angle_offset) * this.radius, this.center.y + sin(angle_offset) * this.radius);
+        PVector left = new PVector(this.center.x + cos(PI + angle_offset) * this.radius, this.center.y + sin(PI + angle_offset) * this.radius);
+        PVector botright = new PVector(this.center.x + cos(PI / 3 + angle_offset) * this.radius, this.center.y + sin(PI / 3 + angle_offset) * this.radius);
+        PVector botleft = new PVector(this.center.x + cos(TWO_PI / 3 + angle_offset) * this.radius, this.center.y + sin(TWO_PI / 3 + angle_offset) * this.radius);
+        PVector topleft = new PVector(this.center.x + cos(4 * PI / 3 + angle_offset) * this.radius, this.center.y + sin(4 * PI / 3 + angle_offset) * this.radius);
+        PVector topright = new PVector(this.center.x + cos(5 * PI / 3 + angle_offset) * this.radius, this.center.y + sin(5 * PI / 3 + angle_offset) * this.radius);
         
         
         PShape tr = createShape();
